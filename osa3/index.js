@@ -21,19 +21,25 @@ let notes = [
     name: "Lea Kutvonen",
     number: "040-123456",
     id: 4
+  },
+  {
+    name: "uudelleen käynnistys",
+    number: "monta",
+    id: 5
   }
 ]
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
+app.get('/api/persons', (request, response) => {
+  const notelist = notes.find(note => note.id!== 1)
+  response.json(notes)
+})
 
-app.get('/notes/:id', (request, response) => {
+app.get('/api/:id', (request, response) => {
   const id = Number(request.params.id)
-  const note = notes.find(note => {
-    console.log(note.id, typeof note.id, id, typeof id, note.id === id)
-    return note.id === id
-  }) 
+  const note = notes.find(note =>note.id === id) 
   console.log(note)
   response.json(note)
 })
